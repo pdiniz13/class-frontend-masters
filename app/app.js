@@ -1,8 +1,7 @@
 Comments = new Mongo.Collection('comments');
 
 if (Meteor.isClient) {
-  Meteor.subscribe('comments');
-  Meteor.subscribe('recentComments');
+  //Meteor.subscribe('allComments');
 
   Template.CommentList.helpers({
     comments: function () {
@@ -35,22 +34,27 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-  Meteor.publish('comments', function () {
+  Meteor.publish('allComments', function () {
     var cursor = Comments.find();
     var self = this;
-
-    cursor.observeChanges({
+    var handle = cursor.observeChanges({
       added: function (id, fields) {
-        console.log('added', id, fields);
+        self.added('comments', id, fields);
       },
 
       changed: function (id, fields) {
-        console.log('changed', id, fields);
+        self.changed('comments', id, fields);
       },
 
       removed: function (id) {
-        console.log('removed', id);
+        self.removed('comments', id);
       }
+    });
+
+    this.ready();
+
+    this.onStop(function () {
+      handle.stop();
     });
   });
 }
