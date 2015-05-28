@@ -1,7 +1,16 @@
 Comments = new Mongo.Collection('comments');
 
 if (Meteor.isClient) {
-  //Meteor.subscribe('allComments');
+  Meteor.subscribe('allComments');
+
+  Meteor.methods({
+    // TODO: implement callMe method
+  });
+
+  Meteor.call("callMe", "Chris", function (err, result) {
+    if (err) throw err;
+    console.log('result: ' + result);
+  });
 
   Template.CommentList.helpers({
     comments: function () {
@@ -34,6 +43,12 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+  Meteor.methods({
+    callMe: function (name) {
+      return "hello, " + name;
+    }
+  });
+
   Meteor.publish('allComments', function () {
     var cursor = Comments.find();
     var self = this;
