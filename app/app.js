@@ -36,20 +36,21 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
   Meteor.publish('comments', function () {
-    this.added('comments', '1', {comment: 'first comment'});
-    this.added('comments', '2', {comment: 'second comment'});
-    this.added('comments', '3', {comment: 'third comment'});
-    this.ready();
-
+    var cursor = Comments.find();
     var self = this;
-    setTimeout(function () {
-      self.changed('comments', '1', {comment: undefined});
-    }, 3000);
-  });
 
-  Meteor.publish('recentComments', function () {
-    this.added('comments', '1', {
-      login: 'cmather'
+    cursor.observeChanges({
+      added: function (id, fields) {
+        console.log('added', id, fields);
+      },
+
+      changed: function (id, fields) {
+        console.log('changed', id, fields);
+      },
+
+      removed: function (id) {
+        console.log('removed', id);
+      }
     });
   });
 }
