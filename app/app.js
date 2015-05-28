@@ -4,7 +4,9 @@ if (Meteor.isClient) {
   Meteor.subscribe('allComments');
 
   Meteor.methods({
-    // TODO: implement callMe method
+    callMe: function (name) {
+      console.log('simulation: ' + name);
+    }
   });
 
   Meteor.call("callMe", "Chris", function (err, result) {

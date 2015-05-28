@@ -3,9 +3,18 @@
 </head>
 
 <body>
+  {{> Login}}
   {{> CommentList}}
   {{> CommentAdd}}
 </body>
+
+<template name="Login">
+  {{#if currentUser}}
+    TODO
+  {{else}}
+    {{> loginButtons}}
+  {{/if}}
+</template>
 
 <template name="CommentList">
   <h1>Flack</h1>
