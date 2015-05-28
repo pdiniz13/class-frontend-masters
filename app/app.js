@@ -1,6 +1,8 @@
 Comments = new Mongo.Collection('comments');
 
 if (Meteor.isClient) {
+  //Meteor.subscribe('comments');
+
   Template.CommentList.helpers({
     comments: function () {
       return Comments.find();
@@ -32,4 +34,7 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
+  Meteor.publish('comments', function () {
+    return Comments.find();
+  });
 }
