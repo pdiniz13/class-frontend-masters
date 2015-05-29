@@ -8,3 +8,4 @@ meteor-platform
 momentjs:moment
 accounts-ui
 accounts-github
+spiderable

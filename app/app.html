@@ -3,10 +3,18 @@
 </head>
 
 <body>
+  {{> Layout}}
+</body>
+
+<template name="SampleTemplate">
+  <h1>Hello World</h1>
+</template>
+
+<template name="Layout">
   {{> Login}}
   {{> CommentList}}
   {{> CommentAdd}}
-</body>
+</template>
 
 <template name="Login">
   {{> loginButtons}}
