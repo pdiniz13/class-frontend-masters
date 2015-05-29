@@ -14,6 +14,16 @@ Name = {
   }
 };
 
+makeMeNotReactive = function (callback) {
+  try {
+    var current = Tracker.currentComputation;
+    Tracker.currentComputation = null;
+    callback();
+  } finally {
+    Tracker.currentComputation = current;
+  }
+};
+
 Tracker.autorun(function () {
   var name = Name.get();
   console.log(name);
