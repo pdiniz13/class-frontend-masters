@@ -5,6 +5,9 @@ Name = {
 
   get: function () {
     return this._value;
+  },
+
+  set: function (value) {
   }
 };
 
