@@ -12,13 +12,11 @@ Name = {
 };
 
 c1 = Tracker.autorun(function (computation) {
-  dep.depend();
   var name = Name.get();
   console.log(name);
 });
 
 c2 = Tracker.autorun(function () {
-  dep.depend();
   var name = Name.get();
   console.log(name);
 });
