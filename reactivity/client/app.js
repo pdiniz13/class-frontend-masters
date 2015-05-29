@@ -1,13 +1,23 @@
 dep = new Tracker.Dependency;
 
-Tracker.autorun(function (computation) {
+Name = {
+  _value: 'Evented Mind',
+
+  get: function () {
+    return this._value;
+  }
+};
+
+c1 = Tracker.autorun(function (computation) {
   dep.depend();
-  console.log('1');
+  var name = Name.get();
+  console.log(name);
 });
 
-Tracker.autorun(function () {
+c2 = Tracker.autorun(function () {
   dep.depend();
-  console.log('2');
+  var name = Name.get();
+  console.log(name);
 });
 
 rerun = function () {
