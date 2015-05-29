@@ -14,6 +14,28 @@ if (Meteor.isClient) {
     console.log('result: ' + result);
   });
 
+  Template.registerHelper('get', function (key) {
+    return Session.get(key);
+  });
+
+
+  var counter = 1;
+  setInterval(function () { 
+    Session.set('counter', ++counter);
+  }, 1000);
+
+  Template.Helpers.helpers({
+    myDataContext: function () {
+      return {
+        myProperty: 'some value!'
+      };
+    },
+
+    isTrue: function () {
+      return Session.equals('isTrue', true);
+    }
+  });
+
   Template.CommentList.helpers({
     comments: function () {
       return Comments.find();

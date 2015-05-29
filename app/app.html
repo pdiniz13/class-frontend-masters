@@ -3,8 +3,26 @@
 </head>
 
 <body>
-  {{> Layout}}
+  {{> Helpers}}
 </body>
+
+<template name="Helpers">
+  <h1>What about  me?!!!</h1>
+
+  {{#if isTrue}}
+    Certainly true!
+  {{else}}
+    Not true my friend!
+  {{/if}}
+</template>
+
+<template name="UnderstandingSession">
+  <h1>Understanding Session</h1>
+
+  <div>
+    {{get "counter"}}
+  </div>
+</template>
 
 <template name="SampleTemplate">
   <h1>Hello World</h1>
