@@ -1,37 +1,42 @@
 <head>
-  <title>app</title>
+    <title>app</title>
 </head>
 
 <body>
-  {{> CommentList}}
-  {{> CommentAdd}}
+{{> Login}}
+{{> CommentList}}
+{{> CommentAdd}}
 </body>
 
-<template name="CommentList">
-  <h1>Flack</h1>
+<template name="Login">
+    {{> loginButtons}}
+</template>
 
-  <ul>
-    {{#each comments}}
-    <li>
-      <div>
-        {{login}}
-      </div>
-      <div>
-        {{formatTimestamp timestamp}}
-      </div>
-      <div>
-        {{comment}}
-      </div>
-    </li>
-    {{else}}
-      <li>Sorry, no comments yet!</li>
-    {{/each}}
-  </ul>
+<template name="CommentList">
+    <h1>Flack</h1>
+
+    <ul>
+        {{#each comments}}
+            <li>
+                <div>
+                    {{login}}
+                </div>
+                <div>
+                    {{formatTimestamp timestamp}}
+                </div>
+                <div>
+                    {{comment}}
+                </div>
+            </li>
+        {{else}}
+            <li>Sorry, no comments yet!</li>
+        {{/each}}
+    </ul>
 </template>
 
 <template name="CommentAdd">
-  <form>
-    <input type="text" name="comment" autofocus placeholder="Add a comment..." />
-    <input type="submit" value="Add" />
-  </form>
+    <form>
+        <input type="text" name="comment" autofocus placeholder="Add a comment..."/>
+        <input type="submit" value="Add"/>
+    </form>
 </template>
