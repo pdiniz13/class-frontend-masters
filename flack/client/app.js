@@ -3,20 +3,23 @@
 /*****************************************************************************/
 Meteor.subscribe('comments');
 Meteor.subscribe('users');
+Meteor.subscribe('rooms');
 //TODO
+
 
 /*****************************************************************************/
 /* Initial State */
 /*****************************************************************************/
 Session.set('activeRoom', 'main');
 Session.set('showInviteConfirm', false);
+Session.set('showRoomAddDialog', false);
 
 /*****************************************************************************/
 /* RPC Methods */
 /*****************************************************************************/
 Meteor.methods({
   inviteFriend: function (email) {
-    // TODO
+    Session.set('showInviteConfirm', true);
   }
 });
 
@@ -24,28 +27,32 @@ Meteor.methods({
 /* Template Helpers */
 /*****************************************************************************/
 Template.Navigation.helpers({
+  mainRoom: function () {
+    return  Rooms.findOne({name: "main"});
+  },
+
   rooms: function () {
     return Rooms.find({name: {$ne: 'main'}}, {sort: {name: 1}});
   },
 
-  isRoomActiveClass: function (room) {
-    // TODO
+  isRoomActiveClass: function () {
+    return Session.equals('activeRoom', this.name) ? 'active' : '';
   },
 
   showInviteConfirm: function () {
-    // TODO
+    return Session.equals('showInviteConfirmation', true);
   }
 });
 
 Template.Room.helpers({
   activeRoom: function () {
-    // TODO
+    return Session.get('activeRoom');
   }
 });
 
 Template.RoomAddDialog.helpers({
   showRoomAddDialog: function () {
-    // TODO
+    return Session.equals('showRoomAddDialog', true);
   }
 });
 
@@ -73,12 +80,12 @@ Template.CommentItem.helpers({
 /*****************************************************************************/
 Template.Navigation.events({
   'click [data-room-add]': function (e, tmpl) {
-    // TODO
+    Session.set('showRoomAddDialog', true);
   },
 
   'click [data-room]': function (e, tmpl) {
-    var room = $(e.target).data('room');
-    Session.set('activeRoom', room);
+    e.preventDefault();
+    Session.set('activeRoom', this.name);
   },
 
   'submit form[data-invite]': function (e, tmpl) {
@@ -112,6 +119,7 @@ Template.RoomAddDialog.events({
     });
 
     //TODO
+    Session.set('showRoomAddDialog', false);
     Session.set('activeRoom', roomName);
   },
 
@@ -139,7 +147,7 @@ Template.CommentAdd.events({
       comment: comment,
       login: Meteor.user().profile.login,
       timestamp: new Date,
-      room: "main"
+      room: Session.get('activeRoom')
     };
     Comments.insert(insComment);
 

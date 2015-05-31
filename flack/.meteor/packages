@@ -12,3 +12,4 @@ http
 natestrauser:font-awesome
 reactive-var
 email
+iron:router

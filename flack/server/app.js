@@ -10,6 +10,9 @@ Meteor.publish('users', function () {
 });
 
 // TODO
+Meteor.publish('rooms', function () {
+  return Rooms.find({}, {sort: {name: 1}});
+});
 
 /*****************************************************************************/
 /* RPC Methods */
@@ -66,7 +69,7 @@ Accounts.onCreateUser(function (options, user) {
 /*****************************************************************************/
 Comments.allow({
   insert: function (userId, doc) {
-    // TODO
+    return !!userId;
   },
 
   update: function (userId, doc) {
@@ -80,7 +83,7 @@ Comments.allow({
 
 Rooms.allow({
   insert: function (userId, doc) {
-    // TODO
+    return !!userId;
   },
 
   update: function (userId, doc) {
